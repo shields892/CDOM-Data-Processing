@@ -2,13 +2,13 @@
 rm(list = ls())
 
 # Load packages
-library(jahrfun)
-# library(tidyverse)
-# library(readxl)
-# library(writexl)
+# library(jahrfun)
+library(tidyverse)
+library(readxl)
+library(writexl)
 library(purrr)
-# library(lemon)
-jah_settings()
+library(lemon)
+# jah_settings()
 
 # # Custom plot settings
 # {
