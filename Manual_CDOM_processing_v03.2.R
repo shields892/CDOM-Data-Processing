@@ -2,93 +2,100 @@
 rm(list = ls())
 
 # Load packages
-library(tidyverse)
-library(readxl)
-library(writexl)
+library(jahrfun)
+# library(tidyverse)
+# library(readxl)
+# library(writexl)
 library(purrr)
-library(lemon)
+# library(lemon)
+jah_settings()
 
-# Custom plot settings
-{
-  base_font_size = 8 #Default Font size in points.
-  base_font_family = "Times" #Default font family.
-  unit <- function(...,units="mm"){grid::unit(...,units=units)} #Set default units to mm
-  margin <- function(...,unit="mm"){ggplot2::margin(...,unit=unit)} #Same as above, but for the margin comment.
-  
-  theme_set(theme(line = element_line(color="black",size=0.25,linetype=1,lineend="butt",arrow=F,inherit.blank=T), 
-                  rect = element_rect(fill=NA,color="black",size=0.25,linetype=1,inherit.blank=T), 
-                  text = element_text(family="Times",face="plain",color="black",size=base_font_size,hjust=0.5,vjust=0.5,
-                                      angle=0,lineheight=0.9,margin=margin(0,0,0,0),debug=F), 
-                  axis.title.x = element_text(margin=margin(2.75,0,0,0),inherit.blank = T),
-                  axis.title.x.top = element_text(margin=margin(0,0,2.75,0),inherit.blank = T), 
-                  axis.title.y = element_text(vjust = 1,angle=90,margin=margin(0,2.75,0,0),inherit.blank = T), 
-                  axis.title.y.right = element_text(vjust = 0,angle=-90,margin=margin(0,0,0,2.75),inherit.blank = T), 
-                  axis.text = element_text(inherit.blank = T), 
-                  axis.text.x = element_text(margin=margin(0.75,0,0,0),inherit.blank = T),
-                  axis.text.x.top = element_text(vjust=0,margin=margin(0,0,0.75,0),inherit.blank = T), 
-                  axis.text.y = element_text(hjust=1,margin=margin(0,0.75,0,0),inherit.blank = T), 
-                  axis.text.y.right = element_text(hjust=0,margin=margin(0,0,0,0.75),inherit.blank = T), 
-                  axis.ticks = element_line(size=0.2,inherit.blank = T), 
-                  axis.ticks.x = element_line(size=0.2,inherit.blank = T),
-                  axis.ticks.y = element_line(size=0.2,inherit.blank = T), 
-                  axis.ticks.length = unit(1), 
-                  axis.line = element_line(inherit.blank = T), 
-                  axis.line.x = element_line(inherit.blank = T), 
-                  axis.line.y = element_line(inherit.blank = T),
-                  legend.background = element_blank(), #default is element_rect() 
-                  legend.margin = margin(2,2,2,2), 
-                  legend.spacing = unit(4), 
-                  legend.spacing.x = unit(4),
-                  legend.spacing.y = unit(4),
-                  legend.key = element_blank(), #default is element_rect() 
-                  legend.key.size = unit(2.5), 
-                  legend.key.height = unit(2.5),
-                  legend.key.width = unit(2.5),
-                  legend.text = element_text(inherit.blank = T), 
-                  legend.text.align = 0, 
-                  legend.title = element_text(hjust=0,inherit.blank = T),
-                  legend.title.align = 0.5, # alignment of legend title (number from 0 (left) to 1 (right))
-                  legend.position = "top", # the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector) 
-                  legend.direction = "horizontal", # layout of items in legends ("horizontal" or "vertical")
-                  legend.justification = "center", #anchor point for positioning legend inside plot, default is "center"
-                  legend.box = "horizontal", #arrangment of multiple legends ("horizontal" or "vertical")
-                  legend.box.just = "left", # justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")
-                  legend.box.margin = margin(0,0,0,0), 
-                  legend.box.background = element_blank(), #background of box around multiple legends
-                  legend.box.spacing = unit(4),
-                  panel.background = element_rect(fill="white",color=NA,inherit.blank = T), 
-                  panel.border = element_rect(fill=NA,color="black",inherit.blank = T), 
-                  panel.spacing = unit(2), #Space between facets
-                  panel.spacing.x = unit(2), #Space between facets
-                  panel.spacing.y = unit(2), #Space between facets
-                  panel.grid = element_blank(),
-                  panel.grid.major = element_line(inherit.blank = T),
-                  panel.grid.minor = element_line(inherit.blank = T),
-                  panel.grid.major.x = element_line(inherit.blank = T),
-                  panel.grid.major.y = element_line(inherit.blank = T),
-                  panel.grid.minor.x = element_line(inherit.blank = T),
-                  panel.grid.minor.y = element_line(inherit.blank = T),
-                  panel.ontop = F, #Place the panel on top of the plot? Not sure why this is here.
-                  plot.background = element_rect(color=NA),
-                  plot.title = element_text(hjust=0,vjust=1,margin=margin(0,0,2.75,0),inherit.blank = T), 
-                  plot.subtitle = element_text(hjust=0,vjust=1,margin=margin(0,0,1.5,0),inherit.blank = T),
-                  plot.caption = element_text(hjust=1,vjust=1,margin=margin(1.5,0,0,0),inherit.blank = T), 
-                  plot.margin = margin(1.5,1.5,1,1),
-                  strip.background = element_rect(color=NA,inherit.blank = T),
-                  strip.placement = "inside", #'inside' or 'outside' relative to the axis ticks/text
-                  strip.text = element_text(inherit.blank = T),
-                  strip.text.x = element_text(margin=margin(2,0,2,0),inherit.blank = T),
-                  strip.text.y = element_text(margin=margin(0,2,0,2),inherit.blank = T),
-                  strip.switch.pad.grid = unit(1),
-                  strip.switch.pad.wrap = unit(1),
-                  complete = T, 
-                  validate = T))
-}
+# # Custom plot settings
+# {
+#   base_font_size = 8 #Default Font size in points.
+#   base_font_family = "Times" #Default font family.
+#   unit <- function(...,units="mm"){grid::unit(...,units=units)} #Set default units to mm
+#   margin <- function(...,unit="mm"){ggplot2::margin(...,unit=unit)} #Same as above, but for the margin comment.
+# 
+#   theme_set(theme(line = element_line(color="black",size=0.25,linetype=1,lineend="butt",arrow=F,inherit.blank=T),
+#                   rect = element_rect(fill=NA,color="black",size=0.25,linetype=1,inherit.blank=T),
+#                   text = element_text(family="Times",face="plain",color="black",size=base_font_size,hjust=0.5,vjust=0.5,
+#                                       angle=0,lineheight=0.9,margin=margin(0,0,0,0),debug=F),
+#                   axis.title.x = element_text(margin=margin(2.75,0,0,0),inherit.blank = T),
+#                   axis.title.x.top = element_text(margin=margin(0,0,2.75,0),inherit.blank = T),
+#                   axis.title.y = element_text(vjust = 1,angle=90,margin=margin(0,2.75,0,0),inherit.blank = T),
+#                   axis.title.y.right = element_text(vjust = 0,angle=-90,margin=margin(0,0,0,2.75),inherit.blank = T),
+#                   axis.text = element_text(inherit.blank = T),
+#                   axis.text.x = element_text(margin=margin(0.75,0,0,0),inherit.blank = T),
+#                   axis.text.x.top = element_text(vjust=0,margin=margin(0,0,0.75,0),inherit.blank = T),
+#                   axis.text.y = element_text(hjust=1,margin=margin(0,0.75,0,0),inherit.blank = T),
+#                   axis.text.y.right = element_text(hjust=0,margin=margin(0,0,0,0.75),inherit.blank = T),
+#                   axis.ticks = element_line(size=0.2,inherit.blank = T),
+#                   axis.ticks.x = element_line(size=0.2,inherit.blank = T),
+#                   axis.ticks.y = element_line(size=0.2,inherit.blank = T),
+#                   axis.ticks.length = unit(1),
+#                   axis.line = element_line(inherit.blank = T),
+#                   axis.line.x = element_line(inherit.blank = T),
+#                   axis.line.y = element_line(inherit.blank = T),
+#                   legend.background = element_blank(), #default is element_rect()
+#                   legend.margin = margin(2,2,2,2),
+#                   legend.spacing = unit(4),
+#                   legend.spacing.x = unit(4),
+#                   legend.spacing.y = unit(4),
+#                   legend.key = element_blank(), #default is element_rect()
+#                   legend.key.size = unit(2.5),
+#                   legend.key.height = unit(2.5),
+#                   legend.key.width = unit(2.5),
+#                   legend.text = element_text(inherit.blank = T),
+#                   legend.text.align = 0,
+#                   legend.title = element_text(hjust=0,inherit.blank = T),
+#                   legend.title.align = 0.5, # alignment of legend title (number from 0 (left) to 1 (right))
+#                   legend.position = "top", # the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)
+#                   legend.direction = "horizontal", # layout of items in legends ("horizontal" or "vertical")
+#                   legend.justification = "center", #anchor point for positioning legend inside plot, default is "center"
+#                   legend.box = "horizontal", #arrangment of multiple legends ("horizontal" or "vertical")
+#                   legend.box.just = "left", # justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")
+#                   legend.box.margin = margin(0,0,0,0),
+#                   legend.box.background = element_blank(), #background of box around multiple legends
+#                   legend.box.spacing = unit(4),
+#                   panel.background = element_rect(fill="white",color=NA,inherit.blank = T),
+#                   panel.border = element_rect(fill=NA,color="black",inherit.blank = T),
+#                   panel.spacing = unit(2), #Space between facets
+#                   panel.spacing.x = unit(2), #Space between facets
+#                   panel.spacing.y = unit(2), #Space between facets
+#                   panel.grid = element_blank(),
+#                   panel.grid.major = element_line(inherit.blank = T),
+#                   panel.grid.minor = element_line(inherit.blank = T),
+#                   panel.grid.major.x = element_line(inherit.blank = T),
+#                   panel.grid.major.y = element_line(inherit.blank = T),
+#                   panel.grid.minor.x = element_line(inherit.blank = T),
+#                   panel.grid.minor.y = element_line(inherit.blank = T),
+#                   panel.ontop = F, #Place the panel on top of the plot? Not sure why this is here.
+#                   plot.background = element_rect(color=NA),
+#                   plot.title = element_text(hjust=0,vjust=1,margin=margin(0,0,2.75,0),inherit.blank = T),
+#                   plot.subtitle = element_text(hjust=0,vjust=1,margin=margin(0,0,1.5,0),inherit.blank = T),
+#                   plot.caption = element_text(hjust=1,vjust=1,margin=margin(1.5,0,0,0),inherit.blank = T),
+#                   plot.margin = margin(1.5,1.5,1,1),
+#                   strip.background = element_rect(color=NA,inherit.blank = T),
+#                   strip.placement = "inside", #'inside' or 'outside' relative to the axis ticks/text
+#                   strip.text = element_text(inherit.blank = T),
+#                   strip.text.x = element_text(margin=margin(2,0,2,0),inherit.blank = T),
+#                   strip.text.y = element_text(margin=margin(0,2,0,2),inherit.blank = T),
+#                   strip.switch.pad.grid = unit(1),
+#                   strip.switch.pad.wrap = unit(1),
+#                   complete = T,
+#                   validate = T))
+# }
+
+Horiba_file_path <- "2024_09_25_02_VAD_photoOX"
+
+# Specify the name for the worksheet containing your sample information that you have completed.
+sample_info_path <- "sample_info.xlsx"
 
 # doc_data <- read_excel("sample_DOC_data.xlsx") # Read in your sample DOC data if you have it.  The "Unique_id" columns must match exactly to join the data!
 
-files_pct <- list.files(path = "Horiba DAT data",pattern = 'PCT.dat', full.names = TRUE) # Identify the percent transmittance (PCT) data files.  Note they must be in a folder titled "Horiba DAT data".
-files_eem <- list.files(path = "Horiba DAT data",pattern = "PEM.dat",full.names = TRUE) # Identify the processed EEM (PEM) data files.  Note they must be in a folder titled "Horiba DAT data".
+files_pct <- list.files(path = Horiba_file_path,pattern = 'PCT.dat', full.names = TRUE) # Identify the percent transmittance (PCT) data files.  Note they must be in a folder titled "Horiba DAT data".
+files_eem <- list.files(path = Horiba_file_path,pattern = "PEM.dat",full.names = TRUE) # Identify the processed EEM (PEM) data files.  Note they must be in a folder titled "Horiba DAT data".
 
 # Read in the "PCT" data, trim the file column into a reasonable sample ID, and add new columns to fill in later.
 sampleIDs_for_info_table <-
@@ -102,10 +109,7 @@ sampleIDs_for_info_table <-
          Group02 = "")
 
 # Export the "Sample information table" as an excel worksheet to fill in now!
-write_xlsx(sampleIDs_for_info_table,"sample_info_template.xlsx")
-
-# Specify the name for the worksheet containing your sample information that you have completed.
-sample_info_path <- "sample_info.xlsx"
+# write_xlsx(sampleIDs_for_info_table,"sample_info_template.xlsx")
 
 # Read in the sample information excel sheet.
 sample_info <- read_excel(sample_info_path)
@@ -122,8 +126,8 @@ abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = F) %>%
         Abs = as.numeric(Abs),
         Percent.T = as.numeric(Percent.T)) %>%
   group_by(Sample_id) %>%
-  mutate(abs_590 = Abs[which(Wavelength == 590)],
-         abs_corrected = Abs - abs_590) # Sometimes the absorbance baseline drifts due to sample water matrix vs. the milliq blank. This corrects for that (see Green and Blough, 1994 DOI:10.4319/lo.1994.39.8.1903)
+  mutate(abs_600 = Abs[which(Wavelength == 600)],
+         abs_corrected = Abs - abs_600) # Sometimes the absorbance baseline drifts due to sample water matrix vs. the milliq blank. This corrects for that (see Green and Blough, 1994 DOI:10.4319/lo.1994.39.8.1903)
 
 # Read in the "PEM" files, rename the columns, 
 eem_data <- map_df(files_eem, ~read.delim(.x, sep = "\t",header = T) %>% 
@@ -147,17 +151,17 @@ eem_data <- map_df(files_eem, ~read.delim(.x, sep = "\t",header = T) %>%
 abs_plots <-
   abs_data %>% 
   filter(Wavelength >= 275 & Wavelength <= 500) %>%
-  # filter(Group01 == "MS") %>%
+  filter(Group02 == "High") %>%
   ggplot(aes(x = Wavelength,y = abs_corrected,color = Unique_id)) +
   geom_point(size = 0.5) +
   geom_path(linewidth = 0.5) +
   scale_x_continuous(n.breaks = 10) +
   xlab("Wavelength (nm)") +
   ylab("Absorbance (ODU)")+
-  facet_wrap(~Group01,scales = "free_y") +
+  facet_wrap(~Group02,scales = "free_y") +
   guides(color = guide_legend(title = "Sample",title.position = "top"))
 
-# ggsave("abs_590corrected_plot_reruns.png",abs_plots,width = 120)
+# ggsave("abs_600corrected_plot_reruns.png",abs_plots,width = 120)
 
 # Filter for the absorbance at 254 (find the closest wavelength to 254 nm first), convert to per meter, join in the DOC data and calculate SUVA254.
 a254 <- 
@@ -188,7 +192,7 @@ a254_combined_plots <-
 
 # ggsave("a254_combined_plots.png",a254_combined_plots,width = 200)
 
-# Filter the data and ln transform for calculating the S275-295 parameter
+# Filter the data and ln transform for calculating the S275-295 parameterhttp://127.0.0.1:24771/graphics/plot_zoom_png?width=2560&height=1377
 S275_295 <-
   abs_data %>%
   filter(Wavelength >= 275 & Wavelength <= 295) %>%
@@ -247,7 +251,7 @@ slope_parameter_plots <-
 # Bar plot of just the slope ratio (SR)
 slope_ratio_plot <-
   slope_equation_parameters %>%
-  ggplot(aes(Sample_id,Slope_ratio)) +
+  ggplot(aes(Unique_id,Slope_ratio)) +
   geom_col(position = position_dodge2())
 
 
@@ -466,7 +470,7 @@ coble_peaks_plots_m <-
 
 coble_peaks_max_plots <-
   coble_peaks_maxima %>%
-  filter(peak == "M") %>%
+  # filter(peak == "M") %>%
   ggplot(aes(Unique_id,peak_maxima,fill = Group01)) +
   geom_col(position = position_dodge2()) +
   facet_rep_wrap(~peak,nrow = 1) +
@@ -488,3 +492,4 @@ coble_peak_ratio_plots <-
   theme(axis.text.x = element_text(angle = 90))
 
 # ggsave("Coble_ratios_equalScales.png",coble_peak_ratio_plots,width = 300)
+
