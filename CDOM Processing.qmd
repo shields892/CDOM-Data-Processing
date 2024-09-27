@@ -5,23 +5,81 @@ format: html
 editor: visual
 ---
 
-## Quarto
+## Introduction
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+The motivation for generating this file is to provide a "user-friendly" interface for processing and exploring absorbance and fluorescence data acquired on the Horiba Aqualog. Chromophoric dissolved organic matter (CDOM) is a component of dissolved organic matter (DOM) that can be assessed through its optical properties, including its absorbance spectrum and excitation-emission matrices (EEMs).
 
-## Running Code
+So let's begin!
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+## Load packages
 
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
+Clear your local environment and load the necessary packages to run this code.
 
 ```{r}
-#| echo: false
-2 * 2
+rm(list = ls())
+
+library(tidyverse)
+library(readxl)
+library(writexl)
+library(purrr)
+library(lemon)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Identify the data containing your Horiba "PCT" and "PEM" data
+
+Identify the file path where your Horiba ".dat" files are located within the R Project. The PCT data is the percent transmittance, which will be converted to absorbance. The PEM data are the processed EEMs, meaning they have already been interpolated, corrected for inner-filter effects, Rayleigh Masking, and normalized to a quinine sulfate standard.
+
+```{r}
+
+Horiba_file_path <- "2024_09_25_02_VAD_photoOX"
+```
+
+## Generate a list of files in the Horiba data folder
+
+```{r}
+files_pct <- list.files(path = Horiba_file_path,pattern = 'PCT.dat', full.names = TRUE) # Identify the percent transmittance (PCT) data files.  Note they must be in a folder titled "Horiba DAT data".
+files_eem <- list.files(path = Horiba_file_path,pattern = "PEM.dat",full.names = TRUE) # Identify the processed EEM (PEM) data files.  Note they must be in a folder titled "Horiba DAT data".
+head(files_pct)
+head(files_eem)
+```
+
+## Create and export an Excel template for adding metadata
+
+Now we want to read in the PCT.DAT files, separate the filenames into a succinct sample identifier, and generate a table that is exported to Excel so we can add in any additional sample identifier ("Unique_id") and any additional grouping variables for statistics.
+
+```{r}
+# Read in the "PCT" data, trim the file column into a reasonable sample ID, and add new columns to fill in later.
+sampleIDs_for_info_table <-
+  map_df(files_pct, ~read.delim(.x, sep = "\t",header = F) %>% 
+           mutate(File = basename(.x))) %>%
+  separate(File,into = c("Sample_id",NA),sep = -7) %>%
+  select(Sample_id) %>%
+  unique(.) %>%
+  mutate(Unique_id = "",
+         Group01 = "",
+         Group02 = "",
+         Group03 = "")
+
+head(sampleIDs_for_info_table)
+
+# Export the "Sample information table" as an excel worksheet to fill in now!
+write_xlsx(sampleIDs_for_info_table,"sample_info_template.xlsx")
+```
+
+# FILL IN THE SAMPLE INFO WORKSHEET!
+
+After filling in the sample information in the Excel worksheet, SaveAs with a new filename. This will avoid accidentally overwriting your additions if you rerun the chunk above.
+
+## Read in the Sample Info sheet
+
+Be sure to enter the exact filename for the `sample_info_path`.
+
+```{r}
+# Specify the name for the worksheet containing your sample information that you have completed.
+sample_info_path <- "sample_info.xlsx"
+
+# Read in the sample information excel sheet.
+sample_info <- read_excel(sample_info_path)
+
+head(sample_info)
+```
