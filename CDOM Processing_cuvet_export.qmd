@@ -129,7 +129,7 @@ Now we want to read in the PCT.DAT files, separate the filenames into a succinct
 ```{r}
 # Read in the "PCT" data, trim the file column into a reasonable sample ID, and add new columns to fill in later.
 sampleIDs_for_info_table <-
-  map_df(files_pct, ~read.csv(.x) %>% 
+  map_df(files_pct, ~read.delim(.x, sep = "\t",header = F) %>% 
                      filter(!row_number() %in% c(1,2)) %>%
                      mutate(File = basename(.x))) %>%
   separate(File,into = c("Sample_id",NA),sep = "_") %>%
@@ -173,7 +173,7 @@ NOTE: We are using the baseline-corrected absorbance data for plotting and stati
 Also note: I have \#'d out the DOC data import in this code chunk. If you want to calculate the DOC related parameters then be sure to remove the "\#" and complete the %\>%.
 
 ```{r}
-abs_data <- map_df(files_pct, ~read.csv(.x) %>% 
+abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = F) %>% 
                      filter(!row_number() %in% c(1,2)) %>%
                      mutate(File = basename(.x))) %>%
   separate(File,into = c("Sample_id",NA),sep = "_") %>%
@@ -324,7 +324,7 @@ Read in the Horiba EEMs data and format the data frame.
 
 ```{r}
 # Read in the "PEM" files, rename the columns, 
-eem_data <- map_df(files_eem, ~read.csv(.x) %>% 
+eem_data <- map_df(files_eem, ~read.delim(.x, sep = "\t",header = F) %>% 
                      filter(!row_number() %in% c(1,2)) %>%
                      mutate(File = basename(.x))) %>%
   separate(File,into = c("Sample_id",NA,NA,NA,NA),sep = "_") %>%
