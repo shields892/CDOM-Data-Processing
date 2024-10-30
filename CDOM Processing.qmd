@@ -276,7 +276,7 @@ a254_plot <-
 a254_plot
 ```
 
-### SUVA254 
+### SUVA254
 
 Change to eval = TRUE if you want to execute this plot.
 
