@@ -110,7 +110,7 @@ Identify the file path where your Horiba ".dat" files are located within the R P
 
 ```{r}
 
-Horiba_file_path <- "2024_09_25_02_VAD_photoOX"
+Horiba_file_path <- "Single_Cuvet_Data"
 ```
 
 ## Generate a list of files in the Horiba data folder
@@ -156,7 +156,7 @@ Be sure to enter the exact filename for the `sample_info_path`. If joining in th
 
 ```{r}
 # Specify the name of the worksheet containing your sample information that you have completed.
-sample_info_path <- "sample_info.xlsx"
+sample_info_path <- "sample_info_cuvet.xlsx"
 
 # Read in the sample information excel sheet.
 sample_info <- read_excel(sample_info_path)
@@ -173,7 +173,7 @@ NOTE: We are using the baseline-corrected absorbance data for plotting and stati
 Also note: I have \#'d out the DOC data import in this code chunk. If you want to calculate the DOC related parameters then be sure to remove the "\#" and complete the %\>%.
 
 ```{r}
-abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = F) %>% 
+abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = T) %>% 
                      filter(!row_number() %in% c(1,2)) %>%
                      mutate(File = basename(.x))) %>%
   separate(File,into = c("Sample_id",NA),sep = "_") %>%
@@ -183,7 +183,7 @@ abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = F) %>%
   mutate(Abs = 2 - log10(Percent.T)) %>%
   full_join(sample_info) %>%
   group_by(Sample_id) %>%
-  mutate(abs_600 = Abs[which(Wavelength == 600)],
+  mutate(abs_600 = Abs[which(Wavelength == max(Wavelength))],
          abs_corrected = Abs - abs_600)
 
 head(abs_data)
@@ -324,10 +324,10 @@ Read in the Horiba EEMs data and format the data frame.
 
 ```{r}
 # Read in the "PEM" files, rename the columns, 
-eem_data <- map_df(files_eem, ~read.delim(.x, sep = "\t",header = F) %>% 
+eem_data <- map_df(files_eem, ~read.delim(.x, sep = "\t",header = T) %>% 
                      filter(!row_number() %in% c(1,2)) %>%
                      mutate(File = basename(.x))) %>%
-  separate(File,into = c("Sample_id",NA,NA,NA,NA),sep = "_") %>%
+  separate(File,into = c("Sample_id",NA),sep = "_") %>%
   mutate(EX = as.numeric(EX),
          EM = as.numeric(EM),
          X = as.numeric(X)) %>%
