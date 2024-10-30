@@ -192,7 +192,7 @@ a254_combined_plots <-
 
 # ggsave("a254_combined_plots.png",a254_combined_plots,width = 200)
 
-# Filter the data and ln transform for calculating the S275-295 parameterhttp://127.0.0.1:24771/graphics/plot_zoom_png?width=2560&height=1377
+# Filter the data and ln transform for calculating the S275-295 parameter
 S275_295 <-
   abs_data %>%
   filter(Wavelength >= 275 & Wavelength <= 295) %>%

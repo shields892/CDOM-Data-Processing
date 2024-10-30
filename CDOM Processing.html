@@ -167,20 +167,99 @@ The following object is masked from 'package:purrr':
     %||%</code></pre>
 </div>
 </div>
+<section id="set-the-ggplot2-theme" class="level3">
+<h3 class="anchored" data-anchor-id="set-the-ggplot2-theme">Set the ggplot2 theme</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom plot settings</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  base_font_size <span class="ot">=</span> <span class="dv">8</span> <span class="co">#Default Font size in points.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  base_font_family <span class="ot">=</span> <span class="st">"serif"</span> <span class="co">#Default font family.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  unit <span class="ot">&lt;-</span> <span class="cf">function</span>(...,<span class="at">units=</span><span class="st">"mm"</span>){grid<span class="sc">::</span><span class="fu">unit</span>(...,<span class="at">units=</span>units)} <span class="co">#Set default units to mm</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  margin <span class="ot">&lt;-</span> <span class="cf">function</span>(...,<span class="at">unit=</span><span class="st">"mm"</span>){ggplot2<span class="sc">::</span><span class="fu">margin</span>(...,<span class="at">unit=</span>unit)} <span class="co">#Same as above, but for the margin comment.</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_set</span>(<span class="fu">theme</span>(<span class="at">line =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">"black"</span>,<span class="at">linewidth =</span><span class="fl">0.25</span>,<span class="at">linetype=</span><span class="dv">1</span>,<span class="at">lineend=</span><span class="st">"butt"</span>,<span class="at">arrow=</span>F,<span class="at">inherit.blank=</span>T),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">rect =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="cn">NA</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">linewidth=</span><span class="fl">0.25</span>,<span class="at">linetype=</span><span class="dv">1</span>,<span class="at">inherit.blank=</span>T),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"serif"</span>,<span class="at">face=</span><span class="st">"plain"</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">size=</span>base_font_size,<span class="at">hjust=</span><span class="fl">0.5</span>,<span class="at">vjust=</span><span class="fl">0.5</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">angle=</span><span class="dv">0</span>,<span class="at">lineheight=</span><span class="fl">0.9</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">debug=</span>F),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="fl">2.75</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.title.x.top =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">2.75</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="dv">1</span>,<span class="at">angle=</span><span class="dv">90</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="fl">2.75</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="dv">0</span>,<span class="at">angle=</span><span class="sc">-</span><span class="dv">90</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">2.75</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="fl">0.75</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.text.x.top =</span> <span class="fu">element_text</span>(<span class="at">vjust=</span><span class="dv">0</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.75</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">1</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="fl">0.75</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.text.y.right =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.75</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">linewidth=</span><span class="fl">0.2</span>,<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="at">linewidth=</span><span class="fl">0.2</span>,<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.ticks.y =</span> <span class="fu">element_line</span>(<span class="at">linewidth=</span><span class="fl">0.2</span>,<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(<span class="dv">1</span>),</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.line.x =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.background =</span> <span class="fu">element_blank</span>(), <span class="co">#default is element_rect()</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.margin =</span> <span class="fu">margin</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>),</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.spacing =</span> <span class="fu">unit</span>(<span class="dv">4</span>),</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">4</span>),</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">4</span>),</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.key =</span> <span class="fu">element_blank</span>(), <span class="co">#default is element_rect()</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">2.5</span>),</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">2.5</span>),</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="fl">2.5</span>),</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">inherit.blank =</span> T,<span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>,<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="co"># the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, <span class="co"># layout of items in legends ("horizontal" or "vertical")</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.justification =</span> <span class="st">"center"</span>, <span class="co">#anchor point for positioning legend inside plot, default is "center"</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.box =</span> <span class="st">"horizontal"</span>, <span class="co">#arrangment of multiple legends ("horizontal" or "vertical")</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.box.just =</span> <span class="st">"left"</span>, <span class="co"># justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.box.margin =</span> <span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.box.background =</span> <span class="fu">element_blank</span>(), <span class="co">#background of box around multiple legends</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.box.spacing =</span> <span class="fu">unit</span>(<span class="dv">4</span>),</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">"white"</span>,<span class="at">color=</span><span class="cn">NA</span>,<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="cn">NA</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">2</span>), <span class="co">#Space between facets</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">2</span>), <span class="co">#Space between facets</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">2</span>), <span class="co">#Space between facets</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.grid.minor =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.grid.major.x =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.grid.minor.x =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.grid.minor.y =</span> <span class="fu">element_line</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>                  <span class="at">panel.ontop =</span> F, <span class="co">#Place the panel on top of the plot? Not sure why this is here.</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>                  <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color=</span><span class="cn">NA</span>),</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>                  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="dv">1</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">2.75</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>                  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="dv">1</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">1.5</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>                  <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">1</span>,<span class="at">vjust=</span><span class="dv">1</span>,<span class="at">margin=</span><span class="fu">margin</span>(<span class="fl">1.5</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>                  <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>                  <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">color=</span><span class="cn">NA</span>,<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>                  <span class="at">strip.placement =</span> <span class="st">"inside"</span>, <span class="co">#'inside' or 'outside' relative to the axis ticks/text</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>                  <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>                  <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>                  <span class="at">strip.text.y =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>),<span class="at">inherit.blank =</span> T),</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>                  <span class="at">strip.switch.pad.grid =</span> <span class="fu">unit</span>(<span class="dv">1</span>),</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>                  <span class="at">strip.switch.pad.wrap =</span> <span class="fu">unit</span>(<span class="dv">1</span>),</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>                  <span class="at">complete =</span> T,</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>                  <span class="at">validate =</span> T))</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 <section id="identify-the-data-containing-your-horiba-pct-and-pem-data" class="level2">
 <h2 class="anchored" data-anchor-id="identify-the-data-containing-your-horiba-pct-and-pem-data">Identify the data containing your Horiba “PCT” and “PEM” data</h2>
 <p>Identify the file path where your Horiba “.dat” files are located within the R Project. The PCT data is the percent transmittance, which will be converted to absorbance. The PEM data are the processed EEMs, meaning they have already been interpolated, corrected for inner-filter effects, Rayleigh Masking, and normalized to a quinine sulfate standard.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Horiba_file_path <span class="ot">&lt;-</span> <span class="st">"2024_09_25_02_VAD_photoOX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Horiba_file_path <span class="ot">&lt;-</span> <span class="st">"2024_09_25_02_VAD_photoOX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generate-a-list-of-files-in-the-horiba-data-folder" class="level2">
 <h2 class="anchored" data-anchor-id="generate-a-list-of-files-in-the-horiba-data-folder">Generate a list of files in the Horiba data folder</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>files_pct <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> Horiba_file_path,<span class="at">pattern =</span> <span class="st">'PCT.dat'</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="co"># Identify the percent transmittance (PCT) data files.  Note they must be in a folder titled "Horiba DAT data".</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>files_eem <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> Horiba_file_path,<span class="at">pattern =</span> <span class="st">"PEM.dat"</span>,<span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="co"># Identify the processed EEM (PEM) data files.  Note they must be in a folder titled "Horiba DAT data".</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(files_pct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>files_pct <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> Horiba_file_path,<span class="at">pattern =</span> <span class="st">'PCT.dat'</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="co"># Identify the percent transmittance (PCT) data files.  Note they must be in a folder titled "Horiba DAT data".</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>files_eem <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> Horiba_file_path,<span class="at">pattern =</span> <span class="st">"PEM.dat"</span>,<span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="co"># Identify the processed EEM (PEM) data files.  Note they must be in a folder titled "Horiba DAT data".</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(files_pct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2024_09_25_02_VAD_photoOX/B1S10L5PCT.dat"
 [2] "2024_09_25_02_VAD_photoOX/B1S11H0PCT.dat"
@@ -189,7 +268,7 @@ The following object is masked from 'package:purrr':
 [5] "2024_09_25_02_VAD_photoOX/B1S14H3PCT.dat"
 [6] "2024_09_25_02_VAD_photoOX/B1S15H4PCT.dat"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(files_eem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(files_eem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2024_09_25_02_VAD_photoOX/B1S10L5PEM.dat"
 [2] "2024_09_25_02_VAD_photoOX/B1S11H0PEM.dat"
@@ -204,19 +283,19 @@ The following object is masked from 'package:purrr':
 <h2 class="anchored" data-anchor-id="create-and-export-an-excel-template-for-adding-metadata">Create and export an Excel template for adding metadata</h2>
 <p>Now we want to read in the PCT.DAT files, separate the filenames into a succinct sample identifier, and generate a table that is exported to Excel so we can add in any additional sample identifier (“Unique_id”) and any additional grouping variables for statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the "PCT" data, trim the file column into a reasonable sample ID, and add new columns to fill in later.</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sampleIDs_for_info_table <span class="ot">&lt;-</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(files_pct, <span class="sc">~</span><span class="fu">read.delim</span>(.x, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,<span class="at">header =</span> F) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">File =</span> <span class="fu">basename</span>(.x))) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(File,<span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Sample_id"</span>,<span class="cn">NA</span>),<span class="at">sep =</span> <span class="sc">-</span><span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample_id) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(.) <span class="sc">%&gt;%</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Unique_id =</span> <span class="st">""</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Group01 =</span> <span class="st">""</span>,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Group02 =</span> <span class="st">""</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">Group03 =</span> <span class="st">""</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sampleIDs_for_info_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the "PCT" data, trim the file column into a reasonable sample ID, and add new columns to fill in later.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sampleIDs_for_info_table <span class="ot">&lt;-</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(files_pct, <span class="sc">~</span><span class="fu">read.delim</span>(.x, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,<span class="at">header =</span> F) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">File =</span> <span class="fu">basename</span>(.x))) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(File,<span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Sample_id"</span>,<span class="cn">NA</span>),<span class="at">sep =</span> <span class="sc">-</span><span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample_id) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(.) <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Unique_id =</span> <span class="st">""</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Group01 =</span> <span class="st">""</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Group02 =</span> <span class="st">""</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">Group03 =</span> <span class="st">""</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sampleIDs_for_info_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Sample_id Unique_id Group01 Group02 Group03
 1     B1S10L5                                  
@@ -226,8 +305,8 @@ The following object is masked from 'package:purrr':
 293   B1S14H3                                  
 366   B1S15H4                                  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the "Sample information table" as an excel worksheet to fill in now!</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(sampleIDs_for_info_table,<span class="st">"sample_info_template.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the "Sample information table" as an excel worksheet to fill in now!</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(sampleIDs_for_info_table,<span class="st">"sample_info_template.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="fill-in-the-sample-info-worksheet" class="level1">
@@ -235,15 +314,15 @@ The following object is masked from 'package:purrr':
 <p>After filling in the sample information in the Excel worksheet, SaveAs with a new filename. This will avoid accidentally overwriting your additions if you rerun the chunk above.</p>
 <section id="read-in-the-sample-info-sheet" class="level2">
 <h2 class="anchored" data-anchor-id="read-in-the-sample-info-sheet">Read in the Sample Info sheet</h2>
-<p>Be sure to enter the exact filename for the <code>sample_info_path</code>.</p>
+<p>Be sure to enter the exact filename for the <code>sample_info_path</code>. If joining in the DOC data to calculate carbon-normalized parameters, your “Unique_id” identifiers must match between this Sample Info sheet and the DOC data that you are importing.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the name for the worksheet containing your sample information that you have completed.</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sample_info_path <span class="ot">&lt;-</span> <span class="st">"sample_info.xlsx"</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the sample information excel sheet.</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sample_info <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(sample_info_path)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sample_info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the name of the worksheet containing your sample information that you have completed.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sample_info_path <span class="ot">&lt;-</span> <span class="st">"sample_info.xlsx"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the sample information excel sheet.</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>sample_info <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(sample_info_path)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sample_info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   Sample_id Unique_id Group01 Group02
@@ -256,6 +335,581 @@ The following object is masked from 'package:purrr':
 6 B1S15H4   H4        Sample  High   </code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="absorbance-data" class="level1">
+<h1>Absorbance Data</h1>
+<p>Read in the percent transmittance data (PCT) and calculate absorbance in (AU). Due to the baseline drift with water matrices vs.&nbsp;the MilliQ blank, we also calculate a baseline corrected absorbance by subtracting the absorbance at 600 nm. See Green and Blough (1994; DOI:10.4319/lo.1994.39.8.1903).</p>
+<p>NOTE: We are using the baseline-corrected absorbance data for plotting and statistics.</p>
+<p>Also note: I have #’d out the DOC data import in this code chunk. If you want to calculate the DOC related parameters then be sure to remove the “#” and complete the %&gt;%.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>abs_data <span class="ot">&lt;-</span> <span class="fu">map_df</span>(files_pct, <span class="sc">~</span><span class="fu">read.delim</span>(.x, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,<span class="at">header =</span> F) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mutate</span>(<span class="at">File =</span> <span class="fu">basename</span>(.x))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(File,<span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Sample_id"</span>,<span class="cn">NA</span>),<span class="at">sep =</span> <span class="sc">-</span><span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"Wavelength"</span> <span class="ot">=</span> <span class="st">"V1"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Percent.T"</span> <span class="ot">=</span> <span class="st">"V2"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Abs =</span> <span class="dv">2</span> <span class="sc">-</span> <span class="fu">log10</span>(Percent.T)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(sample_info) <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wavelength =</span> <span class="fu">as.numeric</span>(Wavelength),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">Abs =</span> <span class="fu">as.numeric</span>(Abs),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">Percent.T =</span> <span class="fu">as.numeric</span>(Percent.T)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_id) <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">abs_600 =</span> Abs[<span class="fu">which</span>(Wavelength <span class="sc">==</span> <span class="dv">600</span>)],</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">abs_corrected =</span> Abs <span class="sc">-</span> abs_600)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Sample_id)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(abs_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+# Groups:   Sample_id [1]
+  Wavelength Percent.T Sample_id      Abs Unique_id Group01 Group02  abs_600
+       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+1        600      101. B1S10L5   -0.00488 L5        Sample  Low     -0.00488
+2        595      101. B1S10L5   -0.00489 L5        Sample  Low     -0.00488
+3        590      101. B1S10L5   -0.00473 L5        Sample  Low     -0.00488
+4        585      101. B1S10L5   -0.00478 L5        Sample  Low     -0.00488
+5        580      101. B1S10L5   -0.00447 L5        Sample  Low     -0.00488
+6        575      101. B1S10L5   -0.00463 L5        Sample  Low     -0.00488
+# ℹ 1 more variable: abs_corrected &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for the absorbance at 254 (find the closest wavelength to 254 nm first), convert to per meter, join in the DOC data and calculate SUVA254.</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>a254 <span class="ot">&lt;-</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  abs_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nm254_diff =</span> <span class="fu">abs</span>(Wavelength <span class="sc">-</span> <span class="dv">254</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nm254_diff <span class="sc">==</span> <span class="fu">min</span>(nm254_diff)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a254_m1 =</span> abs_corrected <span class="sc">*</span> <span class="dv">100</span>) <span class="co"># %&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># full_join(doc_data %&gt;% filter(Analysis == "NPOC") %&gt;% </span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#             rename("Unique_id" = "Sample ID") %&gt;% </span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#             select(Unique_id,Concentration_mg.L)) %&gt;%</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(SUVA_254 = a254_m1/Concentration_mg.L)</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a254)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 11
+# Groups:   Sample_id [6]
+  Wavelength Percent.T Sample_id     Abs Unique_id Group01 Group02  abs_600
+       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+1        255      99.3 B1S10L5   0.00300 L5        Sample  Low     -0.00488
+2        255      37.7 B1S11H0   0.424   H0        Sample  High    -0.00507
+3        255      37.7 B1S12H1   0.424   H1        Sample  High    -0.00538
+4        255      37.8 B1S13H2   0.422   H2        Sample  High    -0.00523
+5        255      37.9 B1S14H3   0.422   H3        Sample  High    -0.00567
+6        255      38.3 B1S15H4   0.417   H4        Sample  High    -0.00549
+# ℹ 3 more variables: abs_corrected &lt;dbl&gt;, nm254_diff &lt;dbl&gt;, a254_m1 &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data and ln transform for calculating the S275-295 parameter</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>S275_295 <span class="ot">&lt;-</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  abs_data <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Wavelength <span class="sc">&gt;=</span> <span class="dv">275</span> <span class="sc">&amp;</span> Wavelength <span class="sc">&lt;=</span> <span class="dv">295</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">abs_m1 =</span> abs_corrected <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">ln_abs_m1 =</span> <span class="fu">log</span>(abs_m1),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">variable =</span> <span class="st">"S275_295"</span>) </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># na.omit(.)</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data and ln transform for calculating the S350-400 parameter</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>S350_400 <span class="ot">&lt;-</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  abs_data <span class="sc">%&gt;%</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Wavelength <span class="sc">&gt;=</span> <span class="dv">350</span> <span class="sc">&amp;</span> Wavelength <span class="sc">&lt;=</span> <span class="dv">400</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">abs_m1 =</span> abs_corrected <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">ln_abs_m1 =</span> <span class="fu">log</span>(abs_m1),</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">variable =</span> <span class="st">"S350_400"</span>) </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># na.omit(.)</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the two slope data tables</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>slope_data_joined <span class="ot">&lt;-</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(S275_295,S350_400)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Wavelength, Percent.T, Sample_id, Abs, Unique_id,
+Group01, Group02, abs_600, abs_corrected, abs_m1, ln_abs_m1, variable)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(slope_data_joined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 12
+# Groups:   Sample_id [2]
+  Wavelength Percent.T Sample_id        Abs Unique_id Group01 Group02  abs_600
+       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+1        295     100.  B1S10L5   -0.0000230 L5        Sample  Low     -0.00488
+2        290      99.9 B1S10L5    0.000504  L5        Sample  Low     -0.00488
+3        285      99.9 B1S10L5    0.000501  L5        Sample  Low     -0.00488
+4        280      99.9 B1S10L5    0.000228  L5        Sample  Low     -0.00488
+5        275      99.9 B1S10L5    0.000543  L5        Sample  Low     -0.00488
+6        295      68.2 B1S11H0    0.166     H0        Sample  High    -0.00507
+# ℹ 4 more variables: abs_corrected &lt;dbl&gt;, abs_m1 &lt;dbl&gt;, ln_abs_m1 &lt;dbl&gt;,
+#   variable &lt;chr&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the slope parameters for the above plots and calculate the slope ration (SR)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>slope_equation_parameters <span class="ot">&lt;-</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  slope_data_joined <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_id,Unique_id,Group01,Group02,variable) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_modify</span>(<span class="sc">~</span> broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">lm</span>(ln_abs_m1 <span class="sc">~</span> Wavelength, <span class="at">data =</span> .))) <span class="sc">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Wavelength"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"slope"</span> <span class="ot">=</span> estimate) <span class="sc">%&gt;%</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample_id,variable,slope) <span class="sc">%&gt;%</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable,<span class="at">values_from =</span> slope) <span class="sc">%&gt;%</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Slope_ratio =</span> S275_295<span class="sc">/</span>S350_400)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `Unique_id`, `Group01`, `Group02`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(slope_equation_parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+# Groups:   Sample_id, Unique_id, Group01, Group02 [6]
+  Unique_id Group01 Group02 Sample_id S275_295 S350_400 Slope_ratio
+  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+1 L5        Sample  Low     B1S10L5   -0.00335 -0.00651       0.515
+2 H0        Sample  High    B1S11H0   -0.00510 -0.00538       0.948
+3 H1        Sample  High    B1S12H1   -0.00564 -0.00649       0.870
+4 H2        Sample  High    B1S13H2   -0.00598 -0.00690       0.867
+5 H3        Sample  High    B1S14H3   -0.00606 -0.00679       0.892
+6 H4        Sample  High    B1S15H4   -0.00763 -0.00890       0.858</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(slope_equation_parameters,<span class="st">"Slope_parameters.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="absorbance-plots" class="level2">
+<h2 class="anchored" data-anchor-id="absorbance-plots">Absorbance Plots</h2>
+<section id="absorbance-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="absorbance-profiles">Absorbance profiles</h3>
+<p>Adjust the grouping variables as necessary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>abs_plots <span class="ot">&lt;-</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  abs_data <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Wavelength <span class="sc">&gt;=</span> <span class="dv">275</span> <span class="sc">&amp;</span> Wavelength <span class="sc">&lt;=</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Wavelength,<span class="at">y =</span> abs_corrected,<span class="at">color =</span> Unique_id)) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">n.breaks =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Wavelength (nm)"</span>) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Absorbance (ODU)"</span>)<span class="sc">+</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Group02,<span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Sample"</span>,<span class="at">title.position =</span> <span class="st">"top"</span>))</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>abs_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="absorbance-at-254-nm-a254" class="level3">
+<h3 class="anchored" data-anchor-id="absorbance-at-254-nm-a254">Absorbance at 254 nm (a254)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a254 (absorbance at 254 nm)</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>a254_plot <span class="ot">&lt;-</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  a254 <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,a254_m1)) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>a254_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="suva254" class="level3">
+<h3 class="anchored" data-anchor-id="suva254">SUVA254</h3>
+<p>Change to eval = TRUE if you want to execute this plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>SUVA254_plot <span class="ot">&lt;-</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  a254 <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,SUVA_254)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>())</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>SUVA254_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="spectral-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="spectral-slopes">Spectral Slopes</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the slope data in plots. </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>slope_plots <span class="ot">&lt;-</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  slope_data_joined <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Wavelength,<span class="at">y =</span> ln_abs_m1,<span class="at">color =</span> Unique_id)) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">linewidth =</span> <span class="fl">0.5</span>,<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_rep_wrap</span>(variable<span class="sc">~</span>Group01,<span class="at">scales =</span> <span class="st">"free"</span>,<span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Wavelength (nm)"</span>) <span class="sc">+</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Log-transformed Absorbance (m-1)"</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>slope_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bar plot of the slope parameters</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>slope_parameter_plots <span class="ot">&lt;-</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  slope_equation_parameters <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> S275_295<span class="sc">:</span>Slope_ratio,<span class="at">names_to =</span> <span class="st">"variable"</span>,<span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,value,<span class="at">fill =</span> Group01)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_rep_wrap</span>(<span class="sc">~</span>variable,<span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>slope_parameter_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="excitation-emission-matrices-eems" class="level1">
+<h1>Excitation-Emission Matrices (EEMs)</h1>
+<section id="read-in-the-data-and-calculate-indices" class="level2">
+<h2 class="anchored" data-anchor-id="read-in-the-data-and-calculate-indices">Read in the data and calculate indices</h2>
+<p>Read in the Horiba EEMs data and format the data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the "PEM" files, rename the columns, </span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>eem_data <span class="ot">&lt;-</span> <span class="fu">map_df</span>(files_eem, <span class="sc">~</span><span class="fu">read.delim</span>(.x, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,<span class="at">header =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">row_number</span>() <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">pivot_longer</span>(<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(.),<span class="at">names_to =</span> <span class="st">"EX"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mutate</span>(<span class="at">File =</span> <span class="fu">basename</span>(.x))) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(File,<span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Sample_id"</span>,<span class="cn">NA</span>),<span class="at">sep =</span> <span class="sc">-</span><span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(EX,<span class="at">into =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"EX"</span>),<span class="at">sep =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"EM"</span> <span class="ot">=</span> <span class="st">"Sample...Blank"</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">"X"</span> <span class="ot">=</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">EX =</span> <span class="fu">as.numeric</span>(EX),</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">EM =</span> <span class="fu">as.numeric</span>(EM),</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">X =</span> <span class="fu">as.numeric</span>(X)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(EX <span class="sc">&gt;=</span> <span class="dv">240</span> <span class="sc">&amp;</span> EX <span class="sc">&lt;=</span> <span class="dv">440</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(EM <span class="sc">&gt;=</span> <span class="dv">280</span> <span class="sc">&amp;</span> EM <span class="sc">&lt;=</span> <span class="dv">600</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(sample_info) <span class="sc">%&gt;%</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">X =</span> <span class="fu">ifelse</span>(X <span class="sc">&lt;</span> <span class="dv">0</span>,<span class="dv">0</span>,X)) <span class="co">#Added to eliminate whitespace from EEM plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Sample_id)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(eem_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+     EM    EX     X Sample_id Unique_id Group01 Group02
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;  
+1   280   440     0 B1S10L5   L5        Sample  Low    
+2   280   435     0 B1S10L5   L5        Sample  Low    
+3   280   430     0 B1S10L5   L5        Sample  Low    
+4   280   425     0 B1S10L5   L5        Sample  Low    
+5   280   420     0 B1S10L5   L5        Sample  Low    
+6   280   415     0 B1S10L5   L5        Sample  Low    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Humification index</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>HIX <span class="ot">&lt;-</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  eem_data <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HIX_region =</span> <span class="fu">ifelse</span>(EM <span class="sc">&gt;=</span> <span class="dv">300</span> <span class="sc">&amp;</span> EM <span class="sc">&lt;=</span> <span class="dv">345</span>,<span class="st">"region_300_345"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">ifelse</span>(EM <span class="sc">&gt;=</span> <span class="dv">400</span> <span class="sc">&amp;</span> EM <span class="sc">&lt;=</span> <span class="dv">480</span>,<span class="st">"region_435_480"</span>,F))) <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(HIX_region <span class="sc">!=</span> F) <span class="sc">%&gt;%</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_id,Unique_id,Group01,Group02,HIX_region) <span class="sc">%&gt;%</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum_intensity =</span> <span class="fu">sum</span>(X)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> HIX_region,<span class="at">values_from =</span> sum_intensity) <span class="sc">%&gt;%</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HIX =</span> region_435_480 <span class="sc">/</span> region_300_345) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Sample_id', 'Unique_id', 'Group01',
+'Group02'. You can override using the `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(HIX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+# Groups:   Sample_id, Unique_id, Group01, Group02 [6]
+  Sample_id Unique_id Group01 Group02 region_300_345 region_435_480    HIX
+  &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;
+1 B1S10L5   L5        Sample  Low               3.34          0.138 0.0413
+2 B1S11H0   H0        Sample  High            172.           21.7   0.126 
+3 B1S12H1   H1        Sample  High            173.           21.3   0.123 
+4 B1S13H2   H2        Sample  High            171.           21.2   0.124 
+5 B1S14H3   H3        Sample  High            171.           21.0   0.122 
+6 B1S15H4   H4        Sample  High            167.           20.4   0.122 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(HIX,<span class="st">"HIX_data.xlsx"</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Biological index</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>BIX <span class="ot">&lt;-</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  eem_data <span class="sc">%&gt;%</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BIX_peak =</span> <span class="fu">ifelse</span>(EM <span class="sc">==</span> <span class="dv">380</span>,<span class="st">"F_380"</span>,</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">ifelse</span>(EM <span class="sc">==</span> <span class="dv">430</span>,<span class="st">"F_430"</span>,F))) <span class="sc">%&gt;%</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BIX_peak <span class="sc">!=</span> F) <span class="sc">%&gt;%</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_id,Unique_id,Group01,Group02,BIX_peak) <span class="sc">%&gt;%</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum_intensity =</span> <span class="fu">sum</span>(X)) <span class="sc">%&gt;%</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> BIX_peak,<span class="at">values_from =</span> sum_intensity) <span class="sc">%&gt;%</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BIX =</span> F_380 <span class="sc">/</span> F_430) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Sample_id', 'Unique_id', 'Group01',
+'Group02'. You can override using the `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BIX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+# Groups:   Sample_id, Unique_id, Group01, Group02 [6]
+  Sample_id Unique_id Group01 Group02  F_380   F_430   BIX
+  &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1 B1S10L5   L5        Sample  Low     0.0289 0.00362  7.98
+2 B1S11H0   H0        Sample  High    5.19   0.626    8.29
+3 B1S12H1   H1        Sample  High    5.12   0.617    8.30
+4 B1S13H2   H2        Sample  High    5.08   0.610    8.33
+5 B1S14H3   H3        Sample  High    5.07   0.602    8.42
+6 B1S15H4   H4        Sample  High    4.87   0.590    8.26</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(BIX,<span class="st">"BIX_data.xlsx"</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fluorescence index (FI). The ratio of emission intensities at wavelengths 470 nm and 520 nm at excitation 370 nm.</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>FI <span class="ot">&lt;-</span> </span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  eem_data <span class="sc">%&gt;%</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(EX <span class="sc">==</span> <span class="dv">370</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(EM <span class="sc">==</span> <span class="dv">470</span> <span class="sc">|</span> EM <span class="sc">==</span> <span class="dv">520</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> EM, <span class="at">values_from =</span> X) <span class="sc">%&gt;%</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"EM_470"</span> <span class="ot">=</span> <span class="st">"470"</span>,<span class="st">"EM_520"</span> <span class="ot">=</span> <span class="st">"520"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">FI =</span> EM_470<span class="sc">/</span>EM_520)</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+     EX Sample_id Unique_id Group01 Group02    EM_470     EM_520      FI
+  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+1   370 B1S10L5   L5        Sample  Low     0.0000286 0.00000144  19.9  
+2   370 B1S11H0   H0        Sample  High    0.0000170 0          Inf    
+3   370 B1S12H1   H1        Sample  High    0.0000386 0.0000855    0.451
+4   370 B1S13H2   H2        Sample  High    0.000122  0.000101     1.21 
+5   370 B1S14H3   H3        Sample  High    0.000143  0.000117     1.22 
+6   370 B1S15H4   H4        Sample  High    0.000402  0.000205     1.96 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(FI,<span class="st">"FI_data.xlsx"</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Following Table 1 from Shields et al. (2019), which is modified from Coble (2007) by Stedmon and Nelson (2015)</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>coble_peaks <span class="ot">&lt;-</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  eem_data <span class="sc">%&gt;%</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">EX_b_t_diff =</span> <span class="fu">abs</span>(EX <span class="sc">-</span> <span class="dv">275</span>),</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">EX_A_diff =</span> <span class="fu">abs</span>(EX <span class="sc">-</span> <span class="dv">260</span>),</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">EM_B_diff =</span> <span class="fu">abs</span>(EM <span class="sc">-</span> <span class="dv">310</span>),</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">EM_T_diff =</span> <span class="fu">abs</span>(EM <span class="sc">-</span> <span class="dv">340</span>),</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">EM_A_diff =</span> <span class="fu">abs</span>(EM <span class="sc">-</span> <span class="dv">460</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">peak =</span> <span class="fu">ifelse</span>(EX_b_t_diff <span class="sc">==</span> <span class="fu">min</span>(EX_b_t_diff) <span class="sc">&amp;</span> EM_B_diff <span class="sc">==</span> <span class="fu">min</span>(EM_B_diff),<span class="st">"B"</span>,</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">ifelse</span>(EX_b_t_diff <span class="sc">==</span> <span class="fu">min</span>(EX_b_t_diff) <span class="sc">&amp;</span> EM_T_diff <span class="sc">==</span> <span class="fu">min</span>(EM_T_diff),<span class="st">"T"</span>,</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ifelse</span>(EX_A_diff <span class="sc">==</span> <span class="fu">min</span>(EX_A_diff) <span class="sc">&amp;</span> EM_A_diff <span class="sc">==</span> <span class="fu">min</span>(EM_A_diff),<span class="st">"A"</span>,</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># ifelse(EX &gt; 320,"M",NA))))) %&gt;%</span></span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(EX <span class="sc">&gt;=</span> <span class="dv">320</span> <span class="sc">&amp;</span> EX <span class="sc">&lt;=</span> <span class="dv">360</span> <span class="sc">&amp;</span> EM <span class="sc">&lt;=</span> <span class="dv">420</span> <span class="sc">&amp;</span> EM <span class="sc">&gt;=</span> <span class="dv">380</span>,<span class="st">"M"</span>,</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">ifelse</span>(EX <span class="sc">&gt;=</span> <span class="dv">290</span> <span class="sc">&amp;</span> EX <span class="sc">&lt;=</span> <span class="dv">310</span> <span class="sc">&amp;</span> EM <span class="sc">&lt;=</span> <span class="dv">480</span> <span class="sc">&amp;</span> EM <span class="sc">&gt;=</span> <span class="dv">420</span>,<span class="st">"C"</span>,<span class="cn">NA</span>)))))) <span class="sc">%&gt;%</span></span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(peak))</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the max fluorescence value within each Coble Peak region </span></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>coble_peaks_maxima <span class="ot">&lt;-</span></span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>  coble_peaks <span class="sc">%&gt;%</span></span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_id,Unique_id,Group01,Group02,peak) <span class="sc">%&gt;%</span></span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">peak_maxima =</span> <span class="fu">max</span>(X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Sample_id', 'Unique_id', 'Group01',
+'Group02'. You can override using the `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(coble_peaks_maxima,<span class="st">"Coble_Peaks.xlsx"</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate additional ratios. See the USGS protocol pages 4 and 5 for descriptions and references </span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>coble_ratios <span class="ot">&lt;-</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  coble_peaks_maxima <span class="sc">%&gt;%</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> peak,<span class="at">values_from =</span> peak_maxima) <span class="sc">%&gt;%</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A_to_T =</span> A<span class="sc">/</span>T,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">C_to_A =</span> C<span class="sc">/</span>A,</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">C_to_M =</span> C<span class="sc">/</span>M,</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">C_to_T =</span> C<span class="sc">/</span>T)</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(coble_ratios,<span class="st">"Coble_ratios.xlsx"</span>)</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coble_peaks_maxima)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+# Groups:   Sample_id, Unique_id, Group01, Group02 [2]
+  Sample_id Unique_id Group01 Group02 peak  peak_maxima
+  &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+1 B1S10L5   L5        Sample  Low     A        0.000439
+2 B1S10L5   L5        Sample  Low     B        0.00943 
+3 B1S10L5   L5        Sample  Low     C        0.000433
+4 B1S10L5   L5        Sample  Low     M        0.000348
+5 B1S10L5   L5        Sample  Low     T        0.0100  
+6 B1S11H0   H0        Sample  High    A        0.0210  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coble_ratios)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+# Groups:   Sample_id, Unique_id, Group01, Group02 [6]
+  Sample_id Unique_id Group01 Group02        A       B        C        M      T
+  &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+1 B1S10L5   L5        Sample  Low     0.000439 0.00943 0.000433 0.000348 0.0100
+2 B1S11H0   H0        Sample  High    0.0210   0.371   0.0574   0.00346  0.419 
+3 B1S12H1   H1        Sample  High    0.0210   0.372   0.0565   0.00360  0.421 
+4 B1S13H2   H2        Sample  High    0.0213   0.370   0.0558   0.00372  0.419 
+5 B1S14H3   H3        Sample  High    0.0205   0.371   0.0559   0.00350  0.420 
+6 B1S15H4   H4        Sample  High    0.0208   0.369   0.0535   0.00365  0.419 
+# ℹ 4 more variables: A_to_T &lt;dbl&gt;, C_to_A &lt;dbl&gt;, C_to_M &lt;dbl&gt;, C_to_T &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="fdom-plots" class="level2">
+<h2 class="anchored" data-anchor-id="fdom-plots">FDOM Plots</h2>
+<section id="contour-plots-eems" class="level3">
+<h3 class="anchored" data-anchor-id="contour-plots-eems">Contour Plots (EEMs)</h3>
+<p>Adjust the filter() grouping and facet_wrape scales as necessary for your investigation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>eem_plots <span class="ot">&lt;-</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  eem_data  <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group01 <span class="sc">==</span> <span class="st">"Sample"</span>) <span class="sc">%&gt;%</span> <span class="co"># Filter however you want for presenting the data.</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> EX,<span class="at">y =</span> EM,<span class="at">z =</span> X)) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> X)) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">color =</span> <span class="st">"black"</span>,<span class="at">bins =</span> <span class="dv">15</span>,<span class="at">alpha =</span> <span class="fl">0.25</span>,<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"H"</span>,<span class="at">guide =</span> <span class="fu">guide_colorbar</span>(<span class="at">title =</span> <span class="st">"Quinine Sulfate Units (QSU)"</span>,<span class="at">display =</span> <span class="st">"raster"</span>)) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># guides(fill = guide_colorbar(title = "Quinine Sulfate Units (QSU)",nbin = 5)) +</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_rep_wrap</span>(<span class="sc">~</span>Unique_id) <span class="sc">+</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.direction =</span> <span class="st">"vertical"</span>) <span class="sc">+</span></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Ex Wavelength (nm)"</span>) <span class="sc">+</span></span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Em Wavelength (nm)"</span>)</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>eem_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `stat_contour()`: Zero contours were generated</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `stat_contour()`: Zero contours were generated</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `stat_contour()`: Zero contours were generated</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `stat_contour()`: Zero contours were generated</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `stat_contour()`: Zero contours were generated</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `stat_contour()`: Zero contours were generated</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="humification-index-hix" class="level3">
+<h3 class="anchored" data-anchor-id="humification-index-hix">Humification Index (HIX)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>HIX_plot <span class="ot">&lt;-</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  HIX <span class="sc">%&gt;%</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,HIX,<span class="at">fill =</span> Group01)) <span class="sc">+</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sample ID"</span>) <span class="sc">+</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Humification Index (HIX)"</span>) <span class="sc">+</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>HIX_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="biological-index-bix" class="level3">
+<h3 class="anchored" data-anchor-id="biological-index-bix">Biological Index (BIX)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>BIX_plot <span class="ot">&lt;-</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  BIX <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group01 <span class="sc">!=</span> <span class="st">"Blank"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,BIX,<span class="at">fill =</span> Group01)) <span class="sc">+</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sample ID"</span>) <span class="sc">+</span></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Biological Index (BIX)"</span>)</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>BIX_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="fluorescence-index-fi" class="level3">
+<h3 class="anchored" data-anchor-id="fluorescence-index-fi">Fluorescence Index (FI)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>FI_plot <span class="ot">&lt;-</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  FI <span class="sc">%&gt;%</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group01 <span class="sc">!=</span> <span class="st">"Blank"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,FI,<span class="at">fill =</span> Group01)) <span class="sc">+</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sample ID"</span>) <span class="sc">+</span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Fluorescence Index (FI)"</span>)</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>FI_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="coble-peaks-table" class="level3">
+<h3 class="anchored" data-anchor-id="coble-peaks-table">Coble Peaks Table</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>coble_peaks_max_plots <span class="ot">&lt;-</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  coble_peaks_maxima <span class="sc">%&gt;%</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(peak == "M") %&gt;%</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,peak_maxima,<span class="at">fill =</span> Group01)) <span class="sc">+</span></span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_rep_wrap</span>(<span class="sc">~</span>peak,<span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sample"</span>) <span class="sc">+</span></span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Fluorescence Intensity (QSU)"</span>) <span class="sc">+</span></span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span>
+<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>coble_peaks_max_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="coble-peak-ratios" class="level3">
+<h3 class="anchored" data-anchor-id="coble-peak-ratios">Coble Peak Ratios</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>coble_peak_ratio_plots <span class="ot">&lt;-</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  coble_ratios <span class="sc">%&gt;%</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>A,<span class="sc">-</span>C,<span class="sc">-</span>M,<span class="sc">-</span>T,<span class="sc">-</span>B) <span class="sc">%&gt;%</span></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(A_to_T<span class="sc">:</span>C_to_T,<span class="at">names_to =</span> <span class="st">"variable"</span>,<span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unique_id,value,<span class="at">fill =</span> Group01)) <span class="sc">+</span></span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span></span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_rep_wrap</span>(<span class="sc">~</span>variable,<span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sample"</span>) <span class="sc">+</span></span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Ratio Value"</span>) <span class="sc">+</span></span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span>
+<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-12"><a href="#cb80-12" aria-hidden="true" tabindex="-1"></a>coble_peak_ratio_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CDOM-Processing_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 </section>
 </section>
 
