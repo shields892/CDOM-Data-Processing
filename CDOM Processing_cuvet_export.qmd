@@ -389,10 +389,9 @@ coble_peaks <-
          EM_B_diff = abs(EM - 310),
          EM_T_diff = abs(EM - 340),
          EM_A_diff = abs(EM - 460)) %>%
-  mutate(peak = ifelse(EX_b_t_diff == min(EX_b_t_diff) & EM_B_diff == min(EM_B_diff),"B",
-                       ifelse(EX_b_t_diff == min(EX_b_t_diff) & EM_T_diff == min(EM_T_diff),"T",
-                              ifelse(EX_A_diff == min(EX_A_diff) & EM_A_diff == min(EM_A_diff),"A",
-                                     # ifelse(EX > 320,"M",NA))))) %>%
+  mutate(peak = ifelse(EX_b_t_diff == EX_b_t_diff[which.min(EX_b_t_diff)] & EM_B_diff == EM_B_diff[which.min(EM_B_diff)],"B",
+                       ifelse(EX_b_t_diff == EX_b_t_diff[which.min(EX_b_t_diff)] & EM_T_diff == EM_T_diff[which.min(EM_T_diff)],"T",
+                              ifelse(EX_A_diff == EX_A_diff[which.min(EX_A_diff)] & EM_A_diff == EM_A_diff[which.min(EM_A_diff)],"A",
                                      ifelse(EX >= 320 & EX <= 360 & EM <= 420 & EM >= 380,"M",
                                             ifelse(EX >= 290 & EX <= 310 & EM <= 480 & EM >= 420,"C",NA)))))) %>%
   filter(!is.na(peak))
