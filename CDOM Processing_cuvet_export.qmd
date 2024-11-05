@@ -356,8 +356,8 @@ write_xlsx(HIX,"HIX_data.xlsx")
 # Biological index
 BIX <-
   eem_data %>%
-  mutate(BIX_peak = ifelse(EM == 380,"F_380",
-                             ifelse(EM == 430,"F_430",F))) %>%
+  mutate(BIX_peak = ifelse(EM == EM[which.min(abs(EM - 380))],"F_380",
+                             ifelse(EM == EM[which.min(abs(EM-430))],"F_430",F))) %>%
   filter(BIX_peak != F) %>%
   group_by(Sample_id,Unique_id,Group01,Group02,BIX_peak) %>%
   summarise(sum_intensity = sum(X)) %>%
@@ -371,8 +371,8 @@ write_xlsx(BIX,"BIX_data.xlsx")
 # Fluorescence index (FI). The ratio of emission intensities at wavelengths 470 nm and 520 nm at excitation 370 nm.
 FI <- 
   eem_data %>%
-  filter(EX == 370) %>%
-  filter(EM == 470 | EM == 520) %>%
+  filter(EX == EX[which.min(abs(EX - 370))]) %>%
+  filter(EM == EM[which.min(abs(EM - 470))] | EM == EM[which.min(abs(EM - 520))]) %>%
   pivot_wider(names_from = EM, values_from = X) %>%
   rename("EM_470" = "470","EM_520" = "520") %>%
   mutate(FI = EM_470/EM_520)
