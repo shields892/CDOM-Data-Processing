@@ -347,11 +347,26 @@ HIX <-
   group_by(Sample_id,Unique_id,Group01,Group02,HIX_region) %>%
   summarise(sum_intensity = sum(X)) %>%
   pivot_wider(names_from = HIX_region,values_from = sum_intensity) %>%
-  mutate(HIX = region_435_480 / region_300_345) 
+  mutate(HIX = region_435_480 / (region_300_345 + region_435_480)) 
 
 head(HIX)
 
 write_xlsx(HIX,"HIX_data.xlsx")
+
+HIX_at_EX254nm <- 
+  eem_data %>%
+  mutate(HIX_region = ifelse(EM >= 300 & EM <= 345,"region_300_345",
+                             ifelse(EM >= 400 & EM <= 480,"region_435_480",F))) %>%
+  filter(HIX_region != F) %>%
+  group_by(Sample_id,Unique_id,Group01,Group02,HIX_region) %>%
+  filter(EX == EX[which.min(abs(EX - 254))]) %>%
+  summarise(sum_intensity = sum(X)) %>%
+  pivot_wider(names_from = HIX_region,values_from = sum_intensity) %>%
+  mutate(HIX = region_435_480 / (region_300_345 + region_435_480))
+
+head(HIX_at_EX254nm)
+
+write_xlsx(HIX_at_EX254nm,"HIX_at_EX254nm_data.xlsx")
 
 # Biological index
 BIX <-
