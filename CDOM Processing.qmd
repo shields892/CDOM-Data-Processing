@@ -177,22 +177,20 @@ abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = F) %>%
   separate(File,into = c("Sample_id",NA),sep = -7) %>%
   rename("Wavelength" = "V1",
          "Percent.T" = "V2") %>%
-  mutate(Abs = 2 - log10(Percent.T)) %>%
   full_join(sample_info) %>%
   mutate(Wavelength = as.numeric(Wavelength),
-        Abs = as.numeric(Abs),
-        Percent.T = as.numeric(Percent.T)) %>%
+        Percent.T = as.numeric(Percent.T),
+        Abs = 2 - log10(Percent.T)) %>%
   group_by(Sample_id) %>%
-  mutate(abs_600 = Abs[which(Wavelength == 600)],
-         abs_corrected = Abs - abs_600)
+  mutate(abs_baseline = Abs[which(Wavelength == max(Wavelength))],
+         abs_corrected = Abs - abs_baseline)
 
 head(abs_data)
 
 # Filter for the absorbance at 254 (find the closest wavelength to 254 nm first), convert to per meter, join in the DOC data and calculate SUVA254.
 a254 <- 
   abs_data %>%
-  mutate(nm254_diff = abs(Wavelength - 254)) %>%
-  filter(nm254_diff == min(nm254_diff)) %>%
+  filter(Wavelength == Wavelength[which.min(abs(Wavelength - 254))]) %>%
   mutate(a254_m1 = abs_corrected * 100) # %>%
   # full_join(doc_data %>% filter(Analysis == "NPOC") %>% 
   #             rename("Unique_id" = "Sample ID") %>% 
@@ -351,22 +349,37 @@ HIX <-
   group_by(Sample_id,Unique_id,Group01,Group02,HIX_region) %>%
   summarise(sum_intensity = sum(X)) %>%
   pivot_wider(names_from = HIX_region,values_from = sum_intensity) %>%
-  mutate(HIX = region_435_480 / region_300_345) 
+  mutate(HIX = region_435_480 / (region_300_345 + region_435_480)) 
 
 head(HIX)
 
 write_xlsx(HIX,"HIX_data.xlsx")
 
+HIX_at_EX254nm <- 
+  eem_data %>%
+  mutate(HIX_region = ifelse(EM >= 300 & EM <= 345,"region_300_345",
+                             ifelse(EM >= 400 & EM <= 480,"region_435_480",F))) %>%
+  filter(HIX_region != F) %>%
+  group_by(Sample_id,Unique_id,Group01,Group02,HIX_region) %>%
+  filter(EX == EX[which.min(abs(EX - 254))]) %>%
+  summarise(sum_intensity = sum(X)) %>%
+  pivot_wider(names_from = HIX_region,values_from = sum_intensity) %>%
+  mutate(HIX = region_435_480 / (region_300_345 + region_435_480))
+
+head(HIX_at_EX254nm)
+
+write_xlsx(HIX_at_EX254nm,"HIX_at_EX254nm_data.xlsx")
+
 # Biological index
 BIX <-
   eem_data %>%
-  mutate(BIX_peak = ifelse(EM == 380,"F_380",
-                             ifelse(EM == 430,"F_430",F))) %>%
+  mutate(BIX_peak = ifelse(EM == EM[which.min(abs(EM - 380))],"F_380",
+                             ifelse(EM == EM[which.min(abs(EM-430))],"F_430",F))) %>%
   filter(BIX_peak != F) %>%
   group_by(Sample_id,Unique_id,Group01,Group02,BIX_peak) %>%
   summarise(sum_intensity = sum(X)) %>%
   pivot_wider(names_from = BIX_peak,values_from = sum_intensity) %>%
-  mutate(BIX = F_380 / F_430) 
+  mutate(BIX = F_380 / F_430)  
 
 head(BIX)
 
@@ -375,8 +388,8 @@ write_xlsx(BIX,"BIX_data.xlsx")
 # Fluorescence index (FI). The ratio of emission intensities at wavelengths 470 nm and 520 nm at excitation 370 nm.
 FI <- 
   eem_data %>%
-  filter(EX == 370) %>%
-  filter(EM == 470 | EM == 520) %>%
+  filter(EX == EX[which.min(abs(EX - 370))]) %>%
+  filter(EM == EM[which.min(abs(EM - 470))] | EM == EM[which.min(abs(EM - 520))]) %>%
   pivot_wider(names_from = EM, values_from = X) %>%
   rename("EM_470" = "470","EM_520" = "520") %>%
   mutate(FI = EM_470/EM_520)
@@ -393,10 +406,9 @@ coble_peaks <-
          EM_B_diff = abs(EM - 310),
          EM_T_diff = abs(EM - 340),
          EM_A_diff = abs(EM - 460)) %>%
-  mutate(peak = ifelse(EX_b_t_diff == min(EX_b_t_diff) & EM_B_diff == min(EM_B_diff),"B",
-                       ifelse(EX_b_t_diff == min(EX_b_t_diff) & EM_T_diff == min(EM_T_diff),"T",
-                              ifelse(EX_A_diff == min(EX_A_diff) & EM_A_diff == min(EM_A_diff),"A",
-                                     # ifelse(EX > 320,"M",NA))))) %>%
+  mutate(peak = ifelse(EX_b_t_diff == EX_b_t_diff[which.min(EX_b_t_diff)] & EM_B_diff == EM_B_diff[which.min(EM_B_diff)],"B",
+                       ifelse(EX_b_t_diff == EX_b_t_diff[which.min(EX_b_t_diff)] & EM_T_diff == EM_T_diff[which.min(EM_T_diff)],"T",
+                              ifelse(EX_A_diff == EX_A_diff[which.min(EX_A_diff)] & EM_A_diff == EM_A_diff[which.min(EM_A_diff)],"A",
                                      ifelse(EX >= 320 & EX <= 360 & EM <= 420 & EM >= 380,"M",
                                             ifelse(EX >= 290 & EX <= 310 & EM <= 480 & EM >= 420,"C",NA)))))) %>%
   filter(!is.na(peak))
