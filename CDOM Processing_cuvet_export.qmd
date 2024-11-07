@@ -170,7 +170,7 @@ Read in the percent transmittance data (PCT) and calculate absorbance in (AU). D
 
 NOTE: We are using the baseline-corrected absorbance data for plotting and statistics.
 
-Also note: I have \#'d out the DOC data import in this code chunk. If you want to calculate the DOC related parameters then be sure to remove the "\#" and complete the %\>%.
+Also note: I have \#'d out the DOC data import in this code chunk. If you want to calculate the DOC related parameters then be sure to remove the "\#" and complete the \%\>\%.
 
 ```{r}
 abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = T) %>% 
