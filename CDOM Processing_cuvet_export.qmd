@@ -183,16 +183,15 @@ abs_data <- map_df(files_pct, ~read.delim(.x, sep = "\t",header = T) %>%
   mutate(Abs = 2 - log10(Percent.T)) %>%
   full_join(sample_info) %>%
   group_by(Sample_id) %>%
-  mutate(abs_600 = Abs[which(Wavelength == max(Wavelength))],
-         abs_corrected = Abs - abs_600)
+  mutate(abs_baseline = Abs[which(Wavelength == max(Wavelength))],
+         abs_corrected = Abs - abs_baseline)
 
 head(abs_data)
 
 # Filter for the absorbance at 254 (find the closest wavelength to 254 nm first), convert to per meter, join in the DOC data and calculate SUVA254.
 a254 <- 
   abs_data %>%
-  mutate(nm254_diff = abs(Wavelength - 254)) %>%
-  filter(nm254_diff == min(nm254_diff)) %>%
+  filter(Wavelength == Wavelength[which.min(abs(Wavelength - 254))]) %>%
   mutate(a254_m1 = abs_corrected * 100) # %>%
   # full_join(doc_data %>% filter(Analysis == "NPOC") %>% 
   #             rename("Unique_id" = "Sample ID") %>% 
